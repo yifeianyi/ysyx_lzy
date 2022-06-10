@@ -6,7 +6,7 @@
 
 // The macro `__GUEST_ISA__` is defined in $(CFLAGS).
 // It will be expanded as "x86" or "mips32" ...
-typedef concat(__GUEST_ISA__, _CPU_state) CPU_state;
+_CPU_typedef concat(__GUEST_ISA__, state) CPU_state;
 typedef concat(__GUEST_ISA__, _ISADecodeInfo) ISADecodeInfo;
 
 // monitor
@@ -23,9 +23,24 @@ struct Decode;
 int isa_exec_once(struct Decode *s);
 
 // memory
-enum { MMU_DIRECT, MMU_TRANSLATE, MMU_FAIL };
-enum { MEM_TYPE_IFETCH, MEM_TYPE_READ, MEM_TYPE_WRITE };
-enum { MEM_RET_OK, MEM_RET_FAIL, MEM_RET_CROSS_PAGE };
+enum
+{
+    MMU_DIRECT,
+    MMU_TRANSLATE,
+    MMU_FAIL
+};
+enum
+{
+    MEM_TYPE_IFETCH,
+    MEM_TYPE_READ,
+    MEM_TYPE_WRITE
+};
+enum
+{
+    MEM_RET_OK,
+    MEM_RET_FAIL,
+    MEM_RET_CROSS_PAGE
+};
 #ifndef isa_mmu_check
 int isa_mmu_check(vaddr_t vaddr, int len, int type);
 #endif
